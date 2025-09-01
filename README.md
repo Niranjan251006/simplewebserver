@@ -36,6 +36,14 @@ Start the server script and check for errors.
 Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
 ## PROGRAM:
+
+       
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+content = '''
+
+<title>HTML Table Example</title>
+list of protocols in TCP/IP protocol suite
 <table border="1">
     <tr>
         <th>s.no</th>
@@ -66,6 +74,19 @@ Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
        
 </table>
+'''
+class MyServer(BaseHTTPRequestHandler): 
+    def do_GET(self): 
+        print("Get request received...") 
+        self.send_response(200) 
+        self.send_header("content-type", "text/html")
+        self.end_headers() 
+        self.wfile.write(content.encode())
+        print("This is my webserver") 
+        server_address =('',8000)
+        httpd = HTTPServer(server_address,MyServer)
+        httpd.serve_forever()
+        '''
 ## OUTPUT:
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/edcbd05d-0906-47fa-95e7-573be91451c1" />
 
